@@ -1,32 +1,75 @@
-import { useEffect, useState } from "react";
-import { supabase } from "./services/supabaseClient";
+import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import { BreadcrumbProvider } from "./context/BreadcrumbContext";
+import Sidebar from "./Components/Sidebar";
+import Header from "./Components/Header";
+import ProtectedRoute from "./Components/ProtectedRoute";
+import PageTransition from "./Components/PageTransition";
 
-function App() {
-  const [mensaje, setMensaje] = useState("Conectando con Supabase...");
+import Dashboard from "./pages/Dashboard";
+import Mascotas from "./pages/Mascotas";
+import DetalleMascota from "./pages/DetalleMascota";
+import Citas from "./pages/Citas";
+import Consultas from "./pages/Consultas";
+import Reportes from "./pages/Reportes";
+import Configuracion from "./pages/Configuracion";
+import Login from "./pages/Login";
 
-  useEffect(() => {
-    obtenerMascotas();
-  }, []);
+import "./App.css";
 
-  async function obtenerMascotas() {
-    const { data, error } = await supabase
-      .from("tb_mascota")
-      .select("*");
+/** Layout principal con sidebar fijo y área de contenido con scroll */
+function DashboardLayout() {
+  const [collapsed, setCollapsed] = useState(false);
 
-    if (error) {
-      setMensaje(`Error: ${error.message}`);
-      console.error("Error al obtener mascotas:", error.message, error.status);
-    } else {
-      setMensaje(`Conectado correctamente. Mascotas encontradas: ${data?.length ?? 0}`);
-      console.log("Datos de mascotas:", data);
-    }
+  function toggleSidebar() {
+    setCollapsed((s) => !s);
   }
 
   return (
-    <div>
-      <h1>Sistema Veterinario 🐾</h1>
-      <p>{mensaje}</p>
+    <div className="dashboard">
+      <Sidebar collapsed={collapsed} />
+
+      <div className={`main ${collapsed ? "sidebar-collapsed" : ""}`}>
+        <Header onToggle={toggleSidebar} />
+
+        <div className="content-scroll">
+          <div className="content">
+            <PageTransition>
+              <Routes>
+                <Route index element={<Dashboard />} />
+                <Route path="mascotas" element={<Mascotas />} />
+                <Route path="citas" element={<Citas />} />
+                <Route path="consultas" element={<Consultas />} />
+                <Route path="reportes" element={<Reportes />} />
+                <Route path="configuracion" element={<Configuracion />} />
+                <Route path="mascota/:id" element={<DetalleMascota />} />
+              </Routes>
+            </PageTransition>
+          </div>
+        </div>
+      </div>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <BreadcrumbProvider>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/*"
+            element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </BreadcrumbProvider>
+    </AuthProvider>
   );
 }
 
