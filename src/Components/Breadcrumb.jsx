@@ -11,7 +11,10 @@ function Breadcrumb() {
   const items = [
     { label: "Inicio", to: "/", isLast: parts.length === 0 },
     ...parts.map((part, index) => {
-      const to = `/${parts.slice(0, index + 1).join("/")}`;
+      let to = `/${parts.slice(0, index + 1).join("/")}`;
+      if (part === "mascota"){
+        to = "/mascotas";
+      }
       const label = getLabel(part, index, parts);
       return { label, to, isLast: index === parts.length - 1 };
     }),

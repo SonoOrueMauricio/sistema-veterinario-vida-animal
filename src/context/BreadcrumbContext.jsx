@@ -10,7 +10,7 @@ export const ROUTE_LABELS = {
   consultas: "Atenciones",
   reportes: "Reportes",
   configuracion: "Configuración",
-  mascota: "Mascota",
+  mascota: "Mascotas",
 };
 
 /** Permite registrar nombres dinámicos (ej. nombre de mascota en lugar del ID) */

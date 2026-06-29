@@ -64,7 +64,7 @@ function Header({ onToggle }) {
           </button>
         )}
         <button className="btn btn-logout" onClick={handleLogout}>
-          Cerrar sesión
+          ➜] Cerrar sesión
         </button>
       </div>
     </header>
