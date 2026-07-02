@@ -1,88 +1,149 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import "../styles/configuracion.css";
 
 function Configuracion() {
   const { user, updatePassword, updateProfile } = useAuth();
 
-  const [email, setEmail] = useState(user?.email || "");
-  const [telefono, setTelefono] = useState(user?.user_metadata?.phone || "");
+  const [email, setEmail] = useState("");
+  const [telefono, setTelefono] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [mensaje, setMensaje] = useState("");
   const [error, setError] = useState("");
-  const [guardando, setGuardando] = useState(false);
+  const [guardandoPerfil, setGuardandoPerfil] = useState(false);
+  const [guardandoPassword, setGuardandoPassword] = useState(false);
 
-  /** Actualiza correo y teléfono del usuario autenticado */
-  async function guardarPerfil(e) {
-    e.preventDefault();
+  useEffect(() => {
+    setEmail(user?.email || "");
+    setTelefono(user?.user_metadata?.phone || "");
+  }, [user]);
+
+  function limpiarMensajes() {
     setMensaje("");
     setError("");
-    setGuardando(true);
+  }
+
+  async function guardarPerfil(e) {
+    e.preventDefault();
+    limpiarMensajes();
+    setGuardandoPerfil(true);
 
     try {
-      await updateProfile({ email, phone: telefono });
-      setMensaje("Perfil actualizado correctamente");
+      await updateProfile({
+        email,
+        phone: telefono,
+      });
+
+      setMensaje("Los datos de tu perfil fueron actualizados correctamente.");
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "No se pudo actualizar el perfil.");
     } finally {
-      setGuardando(false);
+      setGuardandoPerfil(false);
     }
   }
 
-  /** Cambia la contraseña del usuario autenticado */
   async function cambiarPassword(e) {
     e.preventDefault();
-    setMensaje("");
-    setError("");
+    limpiarMensajes();
+
+    if (!password || !confirmPassword) {
+      setError("Completa los campos de contraseña.");
+      return;
+    }
 
     if (password !== confirmPassword) {
-      setError("Las contraseñas no coinciden");
+      setError("Las contraseñas no coinciden.");
       return;
     }
 
     if (password.length < 6) {
-      setError("La contraseña debe tener al menos 6 caracteres");
+      setError("La contraseña debe tener al menos 6 caracteres.");
       return;
     }
 
-    setGuardando(true);
+    setGuardandoPassword(true);
 
     try {
       await updatePassword(password);
+
       setPassword("");
       setConfirmPassword("");
-      setMensaje("Contraseña actualizada correctamente");
+      setMensaje("La contraseña fue actualizada correctamente.");
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "No se pudo actualizar la contraseña.");
     } finally {
-      setGuardando(false);
+      setGuardandoPassword(false);
     }
   }
 
-  return (
-    <div>
-      <div className="page-header-row">
-        <div>
-          <h1>Configuración</h1>
-          <p className="subtitle">Administra tu cuenta de usuario</p>
-        </div>
-      </div>
+  const nombreUsuario =
+    user?.user_metadata?.full_name ||
+    user?.email?.split("@")[0] ||
+    "Usuario";
 
-      <div className="config-grid">
-        {/* Actualizar correo y teléfono */}
-        <section className="page-card">
-          <h3>Datos de contacto</h3>
-          <form className="config-form" onSubmit={guardarPerfil}>
-            <label className="form-label">
+  const inicial = nombreUsuario.charAt(0).toUpperCase();
+
+  return (
+    <div className="configuracion-page">
+      <section className="configuracion-hero">
+        <div className="configuracion-hero__profile">
+          <div className="configuracion-hero__avatar">{inicial}</div>
+
+          <div>
+            <span className="configuracion-hero__tag">Cuenta de usuario</span>
+            <h1>Configuración</h1>
+            <p>Administra tu perfil, correo y seguridad de acceso.</p>
+          </div>
+        </div>
+
+        <div className="configuracion-hero__email">
+          <span>Sesión activa</span>
+          <strong>{user?.email || "Sin correo registrado"}</strong>
+        </div>
+      </section>
+
+      {mensaje && (
+        <div className="configuracion-alert configuracion-alert--success">
+          <span>✓</span>
+          <p>{mensaje}</p>
+        </div>
+      )}
+
+      {error && (
+        <div className="configuracion-alert configuracion-alert--error">
+          <span>!</span>
+          <p>{error}</p>
+        </div>
+      )}
+
+      <section className="configuracion-grid">
+        <article className="configuracion-card">
+          <div className="configuracion-card__header">
+            <div className="configuracion-card__icon configuracion-card__icon--blue">
+              👤
+            </div>
+
+            <div>
+              <span className="section-tag">Perfil</span>
+              <h2>Datos de contacto</h2>
+              <p>Actualiza la información asociada a tu cuenta.</p>
+            </div>
+          </div>
+
+          <form className="configuracion-form" onSubmit={guardarPerfil}>
+            <label>
               Correo electrónico
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                placeholder="correo@ejemplo.com"
                 required
               />
             </label>
-            <label className="form-label">
+
+            <label>
               Teléfono
               <input
                 type="tel"
@@ -91,43 +152,65 @@ function Configuracion() {
                 placeholder="+51 999 999 999"
               />
             </label>
-            <button className="btn btn-primary" type="submit" disabled={guardando}>
-              Guardar cambios
+
+            <button
+              className="configuracion-button configuracion-button--primary"
+              type="submit"
+              disabled={guardandoPerfil}
+            >
+              {guardandoPerfil ? "Guardando..." : "Guardar cambios"}
             </button>
           </form>
-        </section>
+        </article>
 
-        {/* Cambiar contraseña */}
-        <section className="page-card">
-          <h3>Cambiar contraseña</h3>
-          <form className="config-form" onSubmit={cambiarPassword}>
-            <label className="form-label">
+        <article className="configuracion-card">
+          <div className="configuracion-card__header">
+            <div className="configuracion-card__icon configuracion-card__icon--purple">
+              🔐
+            </div>
+
+            <div>
+              <span className="section-tag">Seguridad</span>
+              <h2>Cambiar contraseña</h2>
+              <p>Usa una contraseña segura de al menos 6 caracteres.</p>
+            </div>
+          </div>
+
+          <form className="configuracion-form" onSubmit={cambiarPassword}>
+            <label>
               Nueva contraseña
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                placeholder="Mínimo 6 caracteres"
                 minLength={6}
               />
             </label>
-            <label className="form-label">
+
+            <label>
               Confirmar contraseña
               <input
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Repite la nueva contraseña"
                 minLength={6}
               />
             </label>
-            <button className="btn btn-primary" type="submit" disabled={guardando}>
-              Actualizar contraseña
+
+            <button
+              className="configuracion-button configuracion-button--security"
+              type="submit"
+              disabled={guardandoPassword}
+            >
+              {guardandoPassword
+                ? "Actualizando..."
+                : "Actualizar contraseña"}
             </button>
           </form>
-        </section>
-      </div>
-
-      {mensaje && <p className="form-success">{mensaje}</p>}
-      {error && <p className="form-error">{error}</p>}
+        </article>
+      </section>
     </div>
   );
 }

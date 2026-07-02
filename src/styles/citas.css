@@ -1,0 +1,623 @@
+
+/* =========================================
+   MÓDULO CITAS PROFESIONAL
+========================================= */
+
+.citas-page {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.citas-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 22px;
+  padding: 28px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #12304a 0%, #1d3f5f 55%, #235b70 100%);
+  color: #ffffff;
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.16);
+}
+
+.citas-hero__tag {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: #dbeafe;
+  background: rgba(255, 255, 255, 0.14);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.citas-hero h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.citas-hero p {
+  max-width: 680px;
+  margin: 12px 0 0;
+  color: #e2e8f0;
+  line-height: 1.6;
+}
+
+.citas-new-button,
+.citas-save-button {
+  border: 0;
+  border-radius: 12px;
+  padding: 13px 17px;
+  color: #ffffff;
+  background: #16a34a;
+  box-shadow: 0 8px 18px rgba(22, 163, 74, 0.25);
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.citas-new-button:hover,
+.citas-save-button:hover {
+  background: #15803d;
+  transform: translateY(-2px);
+}
+
+.citas-new-button span {
+  margin-right: 4px;
+  font-size: 17px;
+}
+
+.citas-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.citas-summary-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 19px;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.05);
+}
+
+.citas-summary-card__icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  font-size: 21px;
+}
+
+.citas-summary-card small {
+  display: block;
+  margin-bottom: 4px;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.citas-summary-card strong {
+  color: #0f172a;
+  font-size: 29px;
+  line-height: 1;
+}
+
+.citas-summary-card--blue .citas-summary-card__icon {
+  background: #dbeafe;
+}
+
+.citas-summary-card--orange .citas-summary-card__icon {
+  background: #ffedd5;
+}
+
+.citas-summary-card--green .citas-summary-card__icon {
+  background: #dcfce7;
+}
+
+.citas-filter-panel {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
+}
+
+.citas-filter-panel__title {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.citas-filter-panel__title > span {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 13px;
+  background: #e0f2fe;
+}
+
+.citas-filter-panel h3 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 16px;
+}
+
+.citas-filter-panel p {
+  margin: 4px 0 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.citas-filter-panel__actions {
+  display: flex;
+  align-items: end;
+  gap: 12px;
+}
+
+.citas-date-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.citas-date-field input {
+  min-height: 42px;
+  padding: 0 11px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  color: #0f172a;
+  background: #ffffff;
+  outline: none;
+}
+
+.citas-clear-button {
+  min-height: 42px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 0 13px;
+  color: #475569;
+  background: #f8fafc;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.citas-list-header h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 23px;
+}
+
+.citas-list-header p {
+  margin: 6px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.citas-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.cita-professional-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 270px;
+  padding: 21px;
+  border: 1px solid #dbe3ee;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+  transition: all 0.25s ease;
+}
+
+.cita-professional-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.12);
+}
+
+.cita-professional-card__accent {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 5px;
+}
+
+.cita-professional-card__accent--orange {
+  background: linear-gradient(90deg, #f59e0b, #fb923c);
+}
+
+.cita-professional-card__accent--green {
+  background: linear-gradient(90deg, #16a34a, #4ade80);
+}
+
+.cita-professional-card__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.cita-professional-card__date-box {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cita-professional-card__date-box span {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.cita-professional-card__date-box strong {
+  color: #0f172a;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.cita-status {
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.cita-status--pending {
+  color: #b45309;
+  background: #fef3c7;
+}
+
+.cita-status--attended {
+  color: #166534;
+  background: #dcfce7;
+}
+
+.cita-professional-card__pet {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  margin: 24px 0;
+}
+
+.cita-professional-card__pet-icon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #bae6fd;
+  border-radius: 16px;
+  background: #ecfeff;
+  font-size: 25px;
+}
+
+.cita-professional-card__pet h3 {
+  margin: 0;
+  color: #172033;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.cita-professional-card__pet p {
+  margin: 5px 0 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.cita-professional-card__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.cita-professional-card__label {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cita-professional-card__button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px 13px;
+  border-radius: 11px;
+  color: #ffffff;
+  background: #0f766e;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.cita-professional-card__button:hover {
+  background: #115e59;
+}
+
+.citas-empty-state {
+  min-height: 260px;
+  padding: 30px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 22px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.citas-empty-state__icon {
+  margin-bottom: 10px;
+  font-size: 42px;
+}
+
+.citas-empty-state h3 {
+  margin: 0;
+  color: #0f172a;
+}
+
+.citas-empty-state p {
+  margin: 8px 0 18px;
+  color: #64748b;
+}
+
+.citas-modal {
+  width: min(680px, calc(100vw - 34px));
+  padding: 28px;
+}
+
+.citas-modal__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.citas-modal__header h2 {
+  margin: 8px 0 0;
+  color: #0f172a;
+}
+
+.citas-modal__header p {
+  margin: 8px 0 0;
+  color: #64748b;
+}
+
+.citas-modal__close {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 10px;
+  color: #475569;
+  background: #f1f5f9;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.citas-form-section {
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  background: #f8fafc;
+}
+
+.citas-form-section__title {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.citas-form-section__title > span {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #dcfce7;
+}
+
+.citas-form-section h3 {
+  margin: 0;
+  color: #0f172a;
+}
+
+.citas-form-section p {
+  margin: 4px 0 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+@media (max-width: 850px) {
+  .citas-hero,
+  .citas-filter-panel {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .citas-filter-panel__actions {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 650px) {
+  .citas-hero {
+    padding: 22px;
+  }
+
+  .citas-hero h1 {
+    font-size: 27px;
+  }
+
+  .citas-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .citas-filter-panel__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .citas-date-field input,
+  .citas-clear-button,
+  .citas-new-button {
+    width: 100%;
+  }
+
+  .citas-modal {
+    padding: 20px;
+  }
+
+  .modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .modal-actions button {
+    width: 100%;
+  }
+}
+
+/* =========================================
+   ACCIONES DE CITAS
+========================================= */
+
+.citas-summary-card--red .citas-summary-card__icon {
+  background: #fee2e2;
+}
+
+.cita-professional-card__reason {
+  margin-top: 16px;
+  padding: 13px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #f8fafc;
+}
+
+.cita-professional-card__reason span {
+  display: block;
+  margin-bottom: 5px;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.cita-professional-card__reason p {
+  margin: 0;
+  color: #334155;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.cita-professional-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.cita-action-button {
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cita-action-button--attend {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+  color: #166534;
+}
+
+.cita-action-button--cancel {
+  border-color: #fed7aa;
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.cita-action-button--edit {
+  border-color: #bfdbfe;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.cita-action-button--delete {
+  border-color: #fecaca;
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.cita-action-button:hover {
+  filter: brightness(0.97);
+}
+
+.cita-status--cancelled {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.cita-professional-card__accent--red {
+  background: linear-gradient(180deg, #ef4444, #fb7185);
+}
+
+.citas-motivo-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-top: 14px;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.citas-motivo-field textarea {
+  width: 100%;
+  resize: vertical;
+  padding: 12px 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 11px;
+  outline: none;
+  color: #0f172a;
+  font: inherit;
+}
+
+.citas-motivo-field textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}

@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Breadcrumb from "./Breadcrumb";
 
-/** Títulos de página según la ruta actual */
 const titles = {
   "/": "Dashboard",
   "/mascotas": "Mascotas",
@@ -13,29 +12,33 @@ const titles = {
   "/configuracion": "Configuración",
 };
 
-/** Calcula la ruta padre para el botón Volver */
 function getBackPath(pathname) {
   if (pathname.startsWith("/mascota/")) return "/mascotas";
+
   const parts = pathname.split("/").filter(Boolean);
-  if (parts.length > 1) return `/${parts.slice(0, -1).join("/")}`;
+
+  if (parts.length > 1) {
+    return `/${parts.slice(0, -1).join("/")}`;
+  }
+
   return null;
 }
 
 function Header({ onToggle }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
 
   const title = useMemo(() => {
     if (location.pathname.startsWith("/mascota/")) {
-      return "Detalle de mascota";
+      return "Ficha clínica";
     }
+
     return titles[location.pathname] || "Sistema veterinario";
   }, [location.pathname]);
 
   const backPath = getBackPath(location.pathname);
 
-  /** Cierra sesión y redirige al login */
   async function handleLogout() {
     try {
       await logout();
@@ -48,9 +51,16 @@ function Header({ onToggle }) {
   return (
     <header className="header">
       <div className="header-left">
-        <button className="menu-btn" onClick={onToggle} aria-label="Colapsar sidebar">
+        <button
+          className="menu-btn"
+          onClick={onToggle}
+          type="button"
+          aria-label="Mostrar u ocultar menú lateral"
+          title="Mostrar u ocultar menú"
+        >
           ☰
         </button>
+
         <div className="header-title">
           <h1>{title}</h1>
           <Breadcrumb />
@@ -59,12 +69,23 @@ function Header({ onToggle }) {
 
       <div className="header-actions">
         {backPath && (
-          <button className="btn btn-outline" onClick={() => navigate(backPath)}>
-            Volver
+          <button
+            className="header-back-button"
+            onClick={() => navigate(backPath)}
+            type="button"
+          >
+            ← Volver
           </button>
         )}
-        <button className="btn btn-logout" onClick={handleLogout}>
-          ➜] Cerrar sesión
+
+          <button
+          className="header-logout-button"
+          onClick={handleLogout}
+          type="button"
+          title="Cerrar sesión"
+        >
+          <span>🚪</span>
+          <span className="header-logout-button__label">Salir</span>
         </button>
       </div>
     </header>

@@ -1,0 +1,605 @@
+/* =========================================
+   MÓDULO ATENCIONES CLÍNICAS
+========================================= */
+
+.atenciones-page {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.atenciones-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #12304a 0%, #1d3f5f 55%, #235b70 100%);
+  color: #ffffff;
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.16);
+}
+
+.atenciones-hero__tag {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #dbeafe;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.atenciones-hero h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.atenciones-hero p {
+  max-width: 700px;
+  margin: 12px 0 0;
+  color: #e2e8f0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.atenciones-hero__summary {
+  min-width: 165px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.12);
+  text-align: center;
+}
+
+.atenciones-hero__summary span {
+  display: block;
+  color: #dbeafe;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.atenciones-hero__summary strong {
+  display: block;
+  margin-top: 6px;
+  color: #ffffff;
+  font-size: 34px;
+  font-weight: 800;
+}
+
+/* FILTROS */
+
+.atenciones-filter-panel {
+  padding: 22px;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
+}
+
+.atenciones-filter-panel__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.atenciones-filter-panel__icon {
+  display: flex;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 13px;
+  background: #e0f2fe;
+}
+
+.atenciones-filter-panel h3 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 17px;
+}
+
+.atenciones-filter-panel p {
+  margin: 4px 0 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.atenciones-filter-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr auto;
+  align-items: end;
+  gap: 14px;
+}
+
+.atenciones-filter-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.atenciones-filter-grid input,
+.atenciones-filter-grid select {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 11px;
+  outline: none;
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.atenciones-filter-grid input:focus,
+.atenciones-filter-grid select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.atenciones-clear-button {
+  min-height: 44px;
+  padding: 0 15px;
+  border: 1px solid #cbd5e1;
+  border-radius: 11px;
+  background: #f8fafc;
+  color: #475569;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* RESULTADOS */
+
+.atenciones-results-header {
+  margin-top: 4px;
+}
+
+.atenciones-results-header h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 24px;
+}
+
+.atenciones-results-header p {
+  margin: 7px 0 0;
+  color: #64748b;
+}
+
+/* LISTADO DE ATENCIONES */
+
+.atenciones-list {
+  display: grid;
+  gap: 18px;
+}
+
+.atencion-prof-card {
+  position: relative;
+  overflow: hidden;
+  padding: 22px;
+  border: 1px solid #dbe3ee;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.atencion-prof-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.11);
+}
+
+.atencion-prof-card__accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+}
+
+.atencion-prof-card__accent--completed {
+  background: linear-gradient(180deg, #16a34a, #4ade80);
+}
+
+.atencion-prof-card__accent--pending {
+  background: linear-gradient(180deg, #f59e0b, #fb923c);
+}
+
+.atencion-prof-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.atencion-prof-card__patient {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.atencion-prof-card__avatar {
+  display: flex;
+  width: 54px;
+  height: 54px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #bae6fd;
+  border-radius: 16px;
+  background: #ecfeff;
+  font-size: 26px;
+}
+
+.atencion-prof-card__patient h3 {
+  margin: 0;
+  color: #172033;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.atencion-prof-card__patient p {
+  margin: 5px 0 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.atencion-status {
+  padding: 7px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.atencion-status--completed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.atencion-status--pending {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.atencion-prof-card__content {
+  display: grid;
+  gap: 14px;
+}
+
+.atencion-prof-card__main-info {
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: #f8fafc;
+}
+
+.atencion-prof-card__label,
+.atencion-diagnosis-box span,
+.atencion-observation-box span {
+  display: block;
+  margin-bottom: 7px;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.atencion-prof-card__main-info h4 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 17px;
+}
+
+.atencion-diagnosis-box,
+.atencion-observation-box {
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.atencion-diagnosis-box {
+  border-left: 4px solid #2563eb;
+}
+
+.atencion-observation-box {
+  border-left: 4px solid #8b5cf6;
+}
+
+.atencion-diagnosis-box p,
+.atencion-observation-box p {
+  margin: 0;
+  color: #334155;
+  line-height: 1.6;
+}
+
+.atencion-prof-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.atencion-prof-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.atencion-prof-card__meta strong {
+  color: #334155;
+}
+
+.atencion-prof-card__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-width: 155px;
+  padding: 11px 14px;
+  border-radius: 11px;
+  background: #0f766e;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.atencion-prof-card__button:hover {
+  background: #115e59;
+}
+
+/* ESTADO VACÍO */
+
+.atenciones-empty-state {
+  display: flex;
+  min-height: 260px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 22px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.atenciones-empty-state__icon {
+  margin-bottom: 10px;
+  font-size: 42px;
+}
+
+.atenciones-empty-state h3 {
+  margin: 0;
+  color: #0f172a;
+}
+
+.atenciones-empty-state p {
+  margin: 8px 0 0;
+  color: #64748b;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .atenciones-hero {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .atenciones-filter-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .atenciones-clear-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 620px) {
+  .atenciones-hero {
+    padding: 22px;
+  }
+
+  .atenciones-hero h1 {
+    font-size: 27px;
+  }
+
+  .atenciones-hero__summary {
+    width: 100%;
+  }
+
+  .atenciones-filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .atencion-prof-card {
+    padding: 18px;
+  }
+
+  .atencion-prof-card__top,
+  .atencion-prof-card__footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .atencion-prof-card__button {
+    width: 100%;
+  }
+}
+
+/* =========================================
+   ACCIONES Y EDICIÓN DE ATENCIONES
+========================================= */
+
+.atencion-management-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.atencion-action-button {
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.atencion-action-button--edit {
+  border: 1px solid #bfdbfe;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.atencion-action-button--edit:hover {
+  background: #dbeafe;
+}
+
+.atencion-action-button--delete {
+  border: 1px solid #fecaca;
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.atencion-action-button--delete:hover {
+  background: #fee2e2;
+}
+
+.atenciones-modal {
+  width: min(720px, 100%);
+}
+
+.atenciones-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.atenciones-modal__header h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 23px;
+}
+
+.atenciones-modal__header p {
+  margin: 8px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.atenciones-modal__close {
+  display: flex;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.atenciones-modal__close:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.atenciones-edit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.atenciones-edit-grid label,
+.atenciones-edit-full {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.atenciones-edit-full {
+  margin-bottom: 14px;
+}
+
+.atenciones-edit-grid input,
+.atenciones-edit-grid select,
+.atenciones-edit-full input,
+.atenciones-edit-full textarea {
+  width: 100%;
+  padding: 12px 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 11px;
+  outline: none;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.atenciones-edit-grid input:focus,
+.atenciones-edit-grid select:focus,
+.atenciones-edit-full input:focus,
+.atenciones-edit-full textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.atenciones-save-button {
+  min-height: 44px;
+  min-width: 160px;
+  border: 0;
+  border-radius: 11px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.atenciones-save-button:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.atenciones-save-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+@media (max-width: 620px) {
+  .atenciones-edit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .atenciones-modal__header {
+    flex-direction: column;
+  }
+
+  .atenciones-modal__close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+  }
+}
